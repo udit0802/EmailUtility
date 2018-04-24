@@ -7,6 +7,28 @@ public class EmailMessage {
 
 	private String mailSender;
 	
+	private List<String> toEmail;
+	
+	private List<String> ccEmail;
+	
+	private List<String> bccEmail;
+	
+	private String subject;
+	
+	private String body;
+	
+	private String bodyContentType;
+	
+	private String filePath;
+	
+	private byte[] attachmentFileContent;
+	
+	private String attachmentMimeType;
+	
+	private String fileNameForAttachment;
+	
+	private String mailTitle;
+	
 	public void setMailSender(String mailSender) {
 		this.mailSender = mailSender;
 	}
@@ -43,28 +65,6 @@ public class EmailMessage {
 		this.fileNameForAttachment = fileNameForAttachment;
 	}
 
-	private List<String> toEmail;
-	
-	private List<String> ccEmail;
-	
-	private List<String> bccEmail;
-	
-	private String subject;
-	
-	private String body;
-	
-	private String bodyContentType;
-	
-	private String filePath;
-	
-	private byte[] attachmentFileContent;
-	
-	private String attachmentMimeType;
-	
-	private String fileNameForAttachment;
-	
-	private String mailTitle;
-	
 	public EmailMessage(String mailSender, 
 						List<String> toEmail,
 						List<String> ccEmail, 
