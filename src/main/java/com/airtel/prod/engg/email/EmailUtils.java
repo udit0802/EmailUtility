@@ -1,6 +1,7 @@
 package com.airtel.prod.engg.email;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -70,7 +71,7 @@ public class EmailUtils {
 		});
 	}
 	
-	public boolean sendEmail(EmailMessage emailMessage, boolean isEmailWithAttachment) throws Exception {
+	public boolean sendEmail(EmailMessage emailMessage) throws Exception {
 		try{
 			// 0. Add Recipients.
 			Message message = setRecipients(emailMessage);
@@ -90,15 +91,20 @@ public class EmailUtils {
 			
 			// if attachment is required then attach file as well.
 			// 3. Create attachment.
-			if(isEmailWithAttachment) {
-				MimeBodyPart attachment = new MimeBodyPart();
-				DataSource source = (null == emailMessage.getAttachmentFileContent()) ?
-										new FileDataSource(emailMessage.getFilePath()) :
-										new ByteArrayDataSource(emailMessage.getAttachmentFileContent(), emailMessage.getAttachmentMimeType())	;
+			
+			if(null != emailMessage.getAttachInfos() && emailMessage.getAttachInfos().size() > 0) {
+				List<AttachmentInfo> attachments = emailMessage.getAttachInfos();
+				for(AttachmentInfo attach : attachments) {
+					MimeBodyPart attachment = new MimeBodyPart();
+					DataSource source = (null == attach.getAttachmentFileContent()) ?
+											new FileDataSource(attach.getFilePath()) :
+											new ByteArrayDataSource(attach.getAttachmentFileContent(), attach.getAttachmentMimeType())	;
+					
+					attachment.setDataHandler(new DataHandler(source));
+					attachment.setFileName(attach.getFileNameForAttachment());
+					multipart.addBodyPart(attachment);
+				}
 				
-				attachment.setDataHandler(new DataHandler(source));
-				attachment.setFileName(emailMessage.getFileNameForAttachment());
-				multipart.addBodyPart(attachment);
 			}
 			
 			// 4. Send message.

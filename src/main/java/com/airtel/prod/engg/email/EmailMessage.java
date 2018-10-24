@@ -19,16 +19,26 @@ public class EmailMessage {
 	
 	private String bodyContentType;
 	
-	private String filePath;
+//	private String filePath;
+//	
+//	private byte[] attachmentFileContent;
+//	
+//	private String attachmentMimeType;
+//	
+//	private String fileNameForAttachment;
 	
-	private byte[] attachmentFileContent;
-	
-	private String attachmentMimeType;
-	
-	private String fileNameForAttachment;
+	private List<AttachmentInfo> attachInfos;
 	
 	private String mailTitle;
 	
+	public List<AttachmentInfo> getAttachInfos() {
+		return attachInfos;
+	}
+
+	public void setAttachInfos(List<AttachmentInfo> attachInfos) {
+		this.attachInfos = attachInfos;
+	}
+
 	public void setMailSender(String mailSender) {
 		this.mailSender = mailSender;
 	}
@@ -57,13 +67,13 @@ public class EmailMessage {
 		this.bodyContentType = bodyContentType;
 	}
 
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-	}
-
-	public void setFileNameForAttachment(String fileNameForAttachment) {
-		this.fileNameForAttachment = fileNameForAttachment;
-	}
+//	public void setFilePath(String filePath) {
+//		this.filePath = filePath;
+//	}
+//
+//	public void setFileNameForAttachment(String fileNameForAttachment) {
+//		this.fileNameForAttachment = fileNameForAttachment;
+//	}
 
 	public EmailMessage(String mailSender, 
 						List<String> toEmail,
@@ -106,8 +116,7 @@ public class EmailMessage {
 			String subject, 
 			String body, 
 			String bodyContentType, 
-			String filePath,
-			String fileNameForAttachment) {
+			List<AttachmentInfo> attachInfos,String mailTitle) {
 		this.mailSender = mailSender;
 		
 		this.toEmail = toEmail;
@@ -118,59 +127,60 @@ public class EmailMessage {
 		this.subject = subject;
 		this.body = body;
 		this.bodyContentType = bodyContentType;
-		this.filePath = filePath;
-		this.fileNameForAttachment = fileNameForAttachment;
+		this.attachInfos = attachInfos;
+		this.mailTitle = mailTitle;
+//		this.fileNameForAttachment = fileNameForAttachment;
 	}
 	
-	public EmailMessage(String mailSender, 
-			List<String> toEmail,
-			List<String> ccEmail, 
-			List<String> bccEmail, 
-			String subject, 
-			String body, 
-			String bodyContentType, 
-			String filePath,
-			String fileNameForAttachment, String mailTitle) {
-		this.mailSender = mailSender;
-		
-		this.toEmail = toEmail;
-		EmailAddressValidator.validateEmailAddress(toEmail);
-		
-		this.ccEmail = setAddressList(ccEmail);
-		this.bccEmail = setAddressList(bccEmail);
-		this.subject = subject;
-		this.body = body;
-		this.bodyContentType = bodyContentType;
-		this.filePath = filePath;
-		this.fileNameForAttachment = fileNameForAttachment;
-		this.mailTitle = mailTitle;
-	}
+//	public EmailMessage(String mailSender, 
+//			List<String> toEmail,
+//			List<String> ccEmail, 
+//			List<String> bccEmail, 
+//			String subject, 
+//			String body, 
+//			String bodyContentType, 
+//			String filePath,
+//			String fileNameForAttachment, String mailTitle) {
+//		this.mailSender = mailSender;
+//		
+//		this.toEmail = toEmail;
+//		EmailAddressValidator.validateEmailAddress(toEmail);
+//		
+//		this.ccEmail = setAddressList(ccEmail);
+//		this.bccEmail = setAddressList(bccEmail);
+//		this.subject = subject;
+//		this.body = body;
+//		this.bodyContentType = bodyContentType;
+//		this.filePath = filePath;
+//		this.fileNameForAttachment = fileNameForAttachment;
+//		this.mailTitle = mailTitle;
+//	}
 
-	public EmailMessage(String mailSender, 
-			List<String> toEmail,
-			List<String> ccEmail, 
-			List<String> bccEmail, 
-			String subject, 
-			String body, 
-			String bodyContentType, 
-			byte[] attachmentFileContent,
-			String attachmentMimeType,
-			String fileNameForAttachment, String mailTitle) {
-		this.mailSender = mailSender;
-		
-		this.toEmail = toEmail;
-		EmailAddressValidator.validateEmailAddress(toEmail);
-		
-		this.ccEmail = setAddressList(ccEmail);
-		this.bccEmail = setAddressList(bccEmail);
-		this.subject = subject;
-		this.body = body;
-		this.bodyContentType = bodyContentType;
-		this.attachmentFileContent = attachmentFileContent;
-		this.attachmentMimeType= attachmentMimeType;
-		this.fileNameForAttachment = fileNameForAttachment;
-		this.mailTitle = mailTitle;
-	}
+//	public EmailMessage(String mailSender, 
+//			List<String> toEmail,
+//			List<String> ccEmail, 
+//			List<String> bccEmail, 
+//			String subject, 
+//			String body, 
+//			String bodyContentType, 
+//			byte[] attachmentFileContent,
+//			String attachmentMimeType,
+//			String fileNameForAttachment, String mailTitle) {
+//		this.mailSender = mailSender;
+//		
+//		this.toEmail = toEmail;
+//		EmailAddressValidator.validateEmailAddress(toEmail);
+//		
+//		this.ccEmail = setAddressList(ccEmail);
+//		this.bccEmail = setAddressList(bccEmail);
+//		this.subject = subject;
+//		this.body = body;
+//		this.bodyContentType = bodyContentType;
+//		this.attachmentFileContent = attachmentFileContent;
+//		this.attachmentMimeType= attachmentMimeType;
+//		this.fileNameForAttachment = fileNameForAttachment;
+//		this.mailTitle = mailTitle;
+//	}
 
 	private List<String> setAddressList(List<String> emailAddresses) {
 		if(emailAddresses == null || emailAddresses.size() == 0) {
@@ -209,43 +219,44 @@ public class EmailMessage {
 		return bodyContentType;
 	}
 
-	public String getFilePath() {
-		return filePath;
-	}
+//	public String getFilePath() {
+//		return filePath;
+//	}
+//
+//	public String getFileNameForAttachment() {
+//		return fileNameForAttachment;
+//	}
 
-	public String getFileNameForAttachment() {
-		return fileNameForAttachment;
+	
+
+	public String getMailTitle() {
+		return mailTitle;
 	}
 
 	@Override
 	public String toString() {
 		return "EmailMessage [mailSender=" + mailSender + ", toEmail=" + toEmail + ", ccEmail=" + ccEmail
 				+ ", bccEmail=" + bccEmail + ", subject=" + subject + ", body=" + body + ", bodyContentType="
-				+ bodyContentType + ", filePath=" + filePath + ", fileNameForAttachment=" + fileNameForAttachment
-				+ ", mailTitle=" + mailTitle + "]";
-	}
-
-	public String getMailTitle() {
-		return mailTitle;
+				+ bodyContentType + ", attachInfos=" + attachInfos + ", mailTitle=" + mailTitle + "]";
 	}
 
 	public void setMailTitle(String mailTitle) {
 		this.mailTitle = mailTitle;
 	}
 
-	public byte[] getAttachmentFileContent() {
-		return attachmentFileContent;
-	}
-
-	public void setAttachmentFileContent(byte[] attachmentFileContent) {
-		this.attachmentFileContent = attachmentFileContent;
-	}
-
-	public String getAttachmentMimeType() {
-		return attachmentMimeType;
-	}
-
-	public void setAttachmentMimeType(String attachmentMimeType) {
-		this.attachmentMimeType = attachmentMimeType;
-	}
+//	public byte[] getAttachmentFileContent() {
+//		return attachmentFileContent;
+//	}
+//
+//	public void setAttachmentFileContent(byte[] attachmentFileContent) {
+//		this.attachmentFileContent = attachmentFileContent;
+//	}
+//
+//	public String getAttachmentMimeType() {
+//		return attachmentMimeType;
+//	}
+//
+//	public void setAttachmentMimeType(String attachmentMimeType) {
+//		this.attachmentMimeType = attachmentMimeType;
+//	}
 }
