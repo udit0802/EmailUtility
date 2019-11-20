@@ -39,7 +39,17 @@ public class TestEmail {
 	public void testEmail() throws Exception{
 		System.out.println("starting the process...");
 		String subject = "Mike testing 123...";
-		String body = "Hi building the email utility please help in testing and use this utility with attachment";
+//		String body = "Hi building the email utility please help in testing and use this utility with attachment";
+		String body = "<!DOCTYPE html>\n" + 
+				"<html>\n" + 
+				"<body>\n" + 
+				"\n" + 
+				"<h1>My First Heading</h1>\n" + 
+				"\n" + 
+				"<p>My first paragraph.</p>\n" + 
+				"\n" + 
+				"</body>\n" + 
+				"</html>";
 		//simple sending the text message
 //		EmailMessage message = new EmailMessage(sender, toList, ccList, bccList, subject, body, "text/html", mailTitle);
 		List<AttachmentInfo> attachments = new ArrayList<>();
